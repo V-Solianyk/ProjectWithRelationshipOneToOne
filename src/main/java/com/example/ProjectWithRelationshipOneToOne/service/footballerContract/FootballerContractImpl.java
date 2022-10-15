@@ -1,9 +1,11 @@
 package com.example.ProjectWithRelationshipOneToOne.service.footballerContract;
 
 import com.example.ProjectWithRelationshipOneToOne.dto.FootballerContractDTO;
+import com.example.ProjectWithRelationshipOneToOne.entity.Footballer;
 import com.example.ProjectWithRelationshipOneToOne.entity.FootballerContract;
-import com.example.ProjectWithRelationshipOneToOne.mapper.FootballerContractMapper;
+import com.example.ProjectWithRelationshipOneToOne.mapper.footballerContract.FootballerContractMapper;
 import com.example.ProjectWithRelationshipOneToOne.repository.FootballerContractRepository;
+import com.example.ProjectWithRelationshipOneToOne.repository.FootballerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,12 +19,15 @@ import java.util.stream.StreamSupport;
 public class FootballerContractImpl implements FootballerContractService {
     private final FootballerContractRepository footballerContractRepository;
     private final FootballerContractMapper footballerContractMapper;
+    private final FootballerRepository footballerRepository;
 
     @Autowired
     public FootballerContractImpl(FootballerContractRepository footballerContractRepository,
-                                  FootballerContractMapper footballerContractMapper) {
+                                  FootballerContractMapper footballerContractMapper,
+                                  FootballerRepository footballerRepository) {
         this.footballerContractRepository = footballerContractRepository;
         this.footballerContractMapper = footballerContractMapper;
+        this.footballerRepository = footballerRepository;
     }
 
     @Override
@@ -56,10 +61,16 @@ public class FootballerContractImpl implements FootballerContractService {
 
     @Override
     public FootballerContractDTO create(FootballerContractDTO footballerContractDTO) {
+        Footballer footballer = footballerRepository.findById(footballerContractDTO.getFootballerId())
+                .orElseThrow(() -> new EntityNotFoundException("Footballer does not exist for this Id"));
+
         FootballerContract footballerContract = footballerContractMapper
                 .footballerContractDTOToFootballerContract(footballerContractDTO);
+        footballerContract.setFootballer(footballer);
 
         footballerContractRepository.save(footballerContract);
+        footballer.setFootballerContract(footballerContract);
+        footballerRepository.save(footballer);
 
         return footballerContractDTO;
     }

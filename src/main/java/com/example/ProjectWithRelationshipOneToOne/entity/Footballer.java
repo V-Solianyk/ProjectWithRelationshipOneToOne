@@ -2,12 +2,14 @@ package com.example.ProjectWithRelationshipOneToOne.entity;
 
 import lombok.Data;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -37,6 +39,7 @@ public class Footballer {
     @NotNull
     private String personalData;
 
-    @OneToOne(mappedBy = "footballer")
+    @OneToOne(mappedBy = "footballer", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     private FootballerContract footballerContract;
 }

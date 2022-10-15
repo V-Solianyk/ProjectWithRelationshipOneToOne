@@ -1,6 +1,5 @@
 package com.example.ProjectWithRelationshipOneToOne.dto;
 
-import com.example.ProjectWithRelationshipOneToOne.entity.Footballer;
 import lombok.Data;
 
 @Data
@@ -10,5 +9,5 @@ public class FootballerContractDTO {
 
     private Boolean automaticExtension;
 
-    private Footballer footballer;
+    private Long footballerId;
 }

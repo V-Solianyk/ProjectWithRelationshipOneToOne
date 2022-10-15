@@ -1,4 +1,4 @@
-package com.example.ProjectWithRelationshipOneToOne.mapper.footballerContract;
+package com.example.ProjectWithRelationshipOneToOne.mapper.footballer;
 
 import com.example.ProjectWithRelationshipOneToOne.dto.FootballerDTO;
 import com.example.ProjectWithRelationshipOneToOne.entity.Footballer;
@@ -12,7 +12,8 @@ public class FootballerMapperImpl implements FootballerMapper {
         footballer.setSurname(footballerDTO.getSurname());
         footballer.setAge(footballerDTO.getAge());
         footballer.setRating(footballerDTO.getRating());
-        footballer.setFootballerContract(footballerDTO.getFootballerContract());
+        footballer.setPersonalData(footballerDTO.getPersonalData());
+
         return footballer;
     }
 
@@ -22,7 +23,8 @@ public class FootballerMapperImpl implements FootballerMapper {
         footballerDTO.setSurname(footballer.getSurname());
         footballerDTO.setAge(footballer.getAge());
         footballerDTO.setRating(footballer.getRating());
-        footballerDTO.setFootballerContract(footballer.getFootballerContract());
+        footballerDTO.setFootballerContractId(footballer.getFootballerContract().getId());
+
         return footballerDTO;
     }
 }

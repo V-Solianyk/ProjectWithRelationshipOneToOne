@@ -1,4 +1,4 @@
-package com.example.ProjectWithRelationshipOneToOne.mapper;
+package com.example.ProjectWithRelationshipOneToOne.mapper.footballerContract;
 
 import com.example.ProjectWithRelationshipOneToOne.dto.FootballerContractDTO;
 import com.example.ProjectWithRelationshipOneToOne.entity.FootballerContract;
@@ -11,7 +11,8 @@ public class FootballerContractMapperImpl implements FootballerContractMapper {
         FootballerContractDTO footballerContractDTO = new FootballerContractDTO();
         footballerContractDTO.setDuration(footballerContract.getDuration());
         footballerContractDTO.setAutomaticExtension(footballerContract.getAutomaticExtension());
-        footballerContractDTO.setFootballer(footballerContract.getFootballer());
+        footballerContractDTO.setFootballerId(footballerContract.getFootballer().getId());
+
         return footballerContractDTO;
     }
 
@@ -20,7 +21,7 @@ public class FootballerContractMapperImpl implements FootballerContractMapper {
         FootballerContract footballerContract = new FootballerContract();
         footballerContract.setDuration(footballerContractDTO.getDuration());
         footballerContract.setAutomaticExtension(footballerContractDTO.getAutomaticExtension());
-        footballerContract.setFootballer(footballerContractDTO.getFootballer());
+
         return footballerContract;
     }
 }

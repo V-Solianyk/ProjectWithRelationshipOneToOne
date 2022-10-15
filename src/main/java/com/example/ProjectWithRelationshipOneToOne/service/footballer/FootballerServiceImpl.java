@@ -2,9 +2,8 @@ package com.example.ProjectWithRelationshipOneToOne.service.footballer;
 
 import com.example.ProjectWithRelationshipOneToOne.dto.FootballerDTO;
 import com.example.ProjectWithRelationshipOneToOne.entity.Footballer;
-import com.example.ProjectWithRelationshipOneToOne.mapper.footballerContract.FootballerMapper;
+import com.example.ProjectWithRelationshipOneToOne.mapper.footballer.FootballerMapper;
 import com.example.ProjectWithRelationshipOneToOne.repository.FootballerRepository;
-import com.example.ProjectWithRelationshipOneToOne.service.footballer.FootballerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -57,7 +56,6 @@ public class FootballerServiceImpl implements FootballerService {
     @Override
     public FootballerDTO create(FootballerDTO footballerDTO) {
         Footballer footballer = footballerMapper.footballerDTOToFootballer(footballerDTO);
-
         footballerRepository.save(footballer);
 
         return footballerDTO;
