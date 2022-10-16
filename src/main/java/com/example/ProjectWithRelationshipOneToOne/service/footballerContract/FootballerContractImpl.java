@@ -39,14 +39,14 @@ public class FootballerContractImpl implements FootballerContractService {
 
     @Override
     public List<FootballerContractDTO> getAllByDuration(Integer duration, Pageable pageable) {
-        return footballerContractRepository.findByDuration(duration, pageable).stream()
+        return footballerContractRepository.findAllByDuration(duration, pageable).stream()
                 .map(footballerContractMapper::footballerContractToFootballerContractDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<FootballerContractDTO> getAllByAutomaticExtension(Boolean automaticExtension, Pageable pageable) {
-        return footballerContractRepository.findByAutomaticExtension(automaticExtension, pageable).stream()
+        return footballerContractRepository.findAllByAutomaticExtension(automaticExtension, pageable).stream()
                 .map(footballerContractMapper::footballerContractToFootballerContractDTO)
                 .collect(Collectors.toList());
     }
@@ -84,6 +84,7 @@ public class FootballerContractImpl implements FootballerContractService {
                 .footballerContractDTOToFootballerContract(footballerContractDTO);
 
         footballerContract.setId(id);
+        footballerContractRepository.save(footballerContract);
 
         return footballerContractDTO;
     }

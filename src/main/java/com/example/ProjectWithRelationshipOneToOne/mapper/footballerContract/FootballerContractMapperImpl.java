@@ -19,6 +19,7 @@ public class FootballerContractMapperImpl implements FootballerContractMapper {
     @Override
     public FootballerContract footballerContractDTOToFootballerContract(FootballerContractDTO footballerContractDTO) {
         FootballerContract footballerContract = new FootballerContract();
+        footballerContract.setAnnualSalary(footballerContractDTO.getAnnualSalary());
         footballerContract.setDuration(footballerContractDTO.getDuration());
         footballerContract.setAutomaticExtension(footballerContractDTO.getAutomaticExtension());
 

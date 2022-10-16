@@ -7,7 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.List;
 
 public interface FootballerContractRepository extends PagingAndSortingRepository<FootballerContract, Long> {
-    List<FootballerContract> findByDuration(Integer duration, Pageable pageable);
+    List<FootballerContract> findAllByDuration(Integer duration, Pageable pageable);
 
-    List<FootballerContract> findByAutomaticExtension(Boolean automaticExtension, Pageable pageable);
+    List<FootballerContract> findAllByAutomaticExtension(Boolean automaticExtension, Pageable pageable);
 }

@@ -30,7 +30,7 @@ public class FootballerController {
 
     @GetMapping
     ResponseEntity<List<FootballerDTO>> getAll() {
-        return ResponseEntity.ok(footballerService.getAll());
+        return ResponseEntity.ok(footballerService.getAll()); //todo поки не працює
     }
 
     @GetMapping("/age")
@@ -44,7 +44,7 @@ public class FootballerController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<FootballerDTO> get(@PathVariable("{/id}") Long id) {
+    ResponseEntity<FootballerDTO> get(@PathVariable Long id) {
         return ResponseEntity.ok(footballerService.get(id));
     }
 
@@ -54,12 +54,14 @@ public class FootballerController {
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<FootballerDTO> update(@PathVariable("/{id}") Long id, @RequestBody FootballerDTO footballerDTO) {
+    ResponseEntity<FootballerDTO> update(@PathVariable Long id, @RequestBody FootballerDTO footballerDTO) {
         return ResponseEntity.ok(footballerService.update(id, footballerDTO));
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<FootballerDTO> delete(@PathVariable("/{id}") Long id) {
+    ResponseEntity<FootballerDTO> deleteById(@PathVariable Long id) {
+        footballerService.delete(id);
+
         return ResponseEntity.noContent().build();
     }
 

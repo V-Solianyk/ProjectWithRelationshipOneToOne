@@ -42,4 +42,6 @@ public class Footballer {
     @OneToOne(mappedBy = "footballer", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private FootballerContract footballerContract;
+
+    //todo toString
 }

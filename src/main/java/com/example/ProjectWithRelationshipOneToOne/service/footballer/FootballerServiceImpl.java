@@ -69,6 +69,7 @@ public class FootballerServiceImpl implements FootballerService {
 
         Footballer footballer = footballerMapper.footballerDTOToFootballer(footballerDTO);
         footballer.setId(id);
+        footballerRepository.save(footballer);
 
         return footballerDTO;
     }

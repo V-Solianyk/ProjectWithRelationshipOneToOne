@@ -34,19 +34,19 @@ public class FootballerContractController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<FootballerContractDTO> get(@PathVariable("/{id}") Long id) {
+    ResponseEntity<FootballerContractDTO> get(@PathVariable Long id) {
         return ResponseEntity.ok(footballerContractService.get(id));
     }
 
     @GetMapping("/duration")
-    ResponseEntity<List<FootballerContractDTO>> getAllByDuration(@RequestParam("/duration") Integer duration,
+    ResponseEntity<List<FootballerContractDTO>> getAllByDuration(@RequestParam("duration") Integer duration,
                                                                  Pageable pageable) {
         return ResponseEntity.ok(footballerContractService.getAllByDuration(duration, pageable));
     }
 
     @GetMapping("/automaticExtension")
     ResponseEntity<List<FootballerContractDTO>> getAllByAutomaticExtension(
-            @RequestParam("/automaticExtension") Boolean automaticExtension, Pageable pageable) {
+            @RequestParam("automaticExtension") Boolean automaticExtension, Pageable pageable) {
         return ResponseEntity.ok(footballerContractService.getAllByAutomaticExtension(automaticExtension, pageable));
     }
 
@@ -57,13 +57,15 @@ public class FootballerContractController {
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<FootballerContractDTO> update(@PathVariable("/{id}") Long id,
+    ResponseEntity<FootballerContractDTO> update(@PathVariable Long id,
                                                  @RequestBody FootballerContractDTO footballerContractDTO) {
         return ResponseEntity.ok(footballerContractService.update(id, footballerContractDTO));
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<FootballerContractDTO> delete(@PathVariable("/{id}") Long id) {
+    ResponseEntity<FootballerContractDTO> delete(@PathVariable Long id) {
+        footballerContractService.delete(id);
+
         return ResponseEntity.noContent().build();
     }
 }

@@ -7,6 +7,8 @@ public class FootballerContractDTO {
 
     private Integer duration;
 
+    private Integer annualSalary;
+
     private Boolean automaticExtension;
 
     private Long footballerId;
