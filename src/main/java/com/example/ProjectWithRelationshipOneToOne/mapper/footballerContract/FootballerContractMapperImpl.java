@@ -11,6 +11,7 @@ public class FootballerContractMapperImpl implements FootballerContractMapper {
         FootballerContractDTO footballerContractDTO = new FootballerContractDTO();
         footballerContractDTO.setDuration(footballerContract.getDuration());
         footballerContractDTO.setAutomaticExtension(footballerContract.getAutomaticExtension());
+        footballerContractDTO.setAnnualSalary(footballerContract.getAnnualSalary());
         footballerContractDTO.setFootballerId(footballerContract.getFootballer().getId());
 
         return footballerContractDTO;

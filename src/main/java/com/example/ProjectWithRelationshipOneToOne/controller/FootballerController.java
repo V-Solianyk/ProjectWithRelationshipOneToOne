@@ -30,7 +30,7 @@ public class FootballerController {
 
     @GetMapping
     ResponseEntity<List<FootballerDTO>> getAll() {
-        return ResponseEntity.ok(footballerService.getAll()); //todo поки не працює
+        return ResponseEntity.ok(footballerService.getAll());
     }
 
     @GetMapping("/age")

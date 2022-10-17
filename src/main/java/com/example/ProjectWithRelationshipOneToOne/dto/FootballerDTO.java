@@ -12,5 +12,4 @@ public class FootballerDTO {
 
     private String personalData;
 
-    private Long footballerContractId;
 }
