@@ -7,6 +7,7 @@ import com.example.ProjectWithRelationshipOneToOne.repository.FootballerReposito
 import com.example.ProjectWithRelationshipOneToOne.service.footballer.FootballerServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

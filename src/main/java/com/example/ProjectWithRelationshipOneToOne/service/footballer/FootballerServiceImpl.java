@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class FootballerServiceImpl implements FootballerService {
@@ -26,7 +25,7 @@ public class FootballerServiceImpl implements FootballerService {
 
     @Override
     public List<FootballerDTO> getAll() {
-        return StreamSupport.stream(footballerRepository.findAll().spliterator(), false)
+        return footballerRepository.findAll().stream()
                 .map(footballerMapper::footballerToFootballerDTO)
                 .collect(Collectors.toList());
     }

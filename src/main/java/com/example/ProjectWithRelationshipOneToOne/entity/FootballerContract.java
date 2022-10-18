@@ -34,4 +34,13 @@ public class FootballerContract {
     @JoinColumn(name = "footballer_id")
     private Footballer footballer;
 
+    @Override
+    public String toString() {
+        return "FootballerContract{" +
+                "id=" + id +
+                ", duration=" + duration +
+                ", annualSalary=" + annualSalary +
+                ", automaticExtension=" + automaticExtension +
+                '}';
+    }
 }
