@@ -29,37 +29,37 @@ public class FootballerController {
     }
 
     @GetMapping
-    ResponseEntity<List<FootballerDTO>> getAll() {
+    public ResponseEntity<List<FootballerDTO>> getAll() {
         return ResponseEntity.ok(footballerService.getAll());
     }
 
     @GetMapping("/age")
-    ResponseEntity<List<FootballerDTO>> getAllByAge(@RequestParam("age") Integer age, Pageable pageable) {
+    public ResponseEntity<List<FootballerDTO>> getAllByAge(@RequestParam("age") Integer age, Pageable pageable) {
         return ResponseEntity.ok(footballerService.getAllByAge(age, pageable));
     }
 
     @GetMapping("/rating")
-    ResponseEntity<List<FootballerDTO>> getAllByRating(@RequestParam("rating") Integer rating, Pageable pageable) {
+    public ResponseEntity<List<FootballerDTO>> getAllByRating(@RequestParam("rating") Integer rating, Pageable pageable) {
         return ResponseEntity.ok(footballerService.getAllByRating(rating, pageable));
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<FootballerDTO> get(@PathVariable Long id) {
+    public ResponseEntity<FootballerDTO> get(@PathVariable Long id) {
         return ResponseEntity.ok(footballerService.get(id));
     }
 
     @PostMapping
-    ResponseEntity<FootballerDTO> create(@RequestBody FootballerDTO footballerDTO) {
+    public ResponseEntity<FootballerDTO> create(@RequestBody FootballerDTO footballerDTO) {
         return new ResponseEntity<FootballerDTO>(footballerService.create(footballerDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<FootballerDTO> update(@PathVariable Long id, @RequestBody FootballerDTO footballerDTO) {
+    public ResponseEntity<FootballerDTO> update(@PathVariable Long id, @RequestBody FootballerDTO footballerDTO) {
         return ResponseEntity.ok(footballerService.update(id, footballerDTO));
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<FootballerDTO> deleteById(@PathVariable Long id) {
+    public ResponseEntity<FootballerDTO> deleteById(@PathVariable Long id) {
         footballerService.delete(id);
 
         return ResponseEntity.noContent().build();

@@ -47,7 +47,7 @@ public class FootballerServiceImpl implements FootballerService {
     @Override
     public FootballerDTO get(Long id) {
         Footballer footballer = footballerRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Footballer not found for id: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("The footballer not found for id: " + id));
 
         return footballerMapper.footballerToFootballerDTO(footballer);
     }
@@ -64,7 +64,7 @@ public class FootballerServiceImpl implements FootballerService {
     @Override
     public FootballerDTO update(Long id, FootballerDTO footballerDTO) {
         footballerRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Footballer not found for id: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("The footballer does not exist for id: " + id));
 
         Footballer footballer = footballerMapper.footballerDTOToFootballer(footballerDTO);
         footballer.setId(id);
@@ -76,7 +76,7 @@ public class FootballerServiceImpl implements FootballerService {
     @Override
     public void delete(Long id) {
         footballerRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Footballer not exist for id: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("The footballer does not exist for id: " + id));
 
         footballerRepository.deleteById(id);
     }
