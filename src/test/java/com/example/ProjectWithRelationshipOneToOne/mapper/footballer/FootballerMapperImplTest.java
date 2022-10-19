@@ -1,4 +1,4 @@
-package com.example.ProjectWithRelationshipOneToOne.footballerMapper;
+package com.example.ProjectWithRelationshipOneToOne.mapper.footballer;
 
 import com.example.ProjectWithRelationshipOneToOne.dto.FootballerDTO;
 import com.example.ProjectWithRelationshipOneToOne.entity.Footballer;

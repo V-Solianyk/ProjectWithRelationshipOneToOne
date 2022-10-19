@@ -15,15 +15,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class FootballerContractImpl implements FootballerContractService {
+public class FootballerContractServiceImpl implements FootballerContractService {
     private final FootballerContractRepository footballerContractRepository;
     private final FootballerContractMapper footballerContractMapper;
     private final FootballerRepository footballerRepository;
 
     @Autowired
-    public FootballerContractImpl(FootballerContractRepository footballerContractRepository,
-                                  FootballerContractMapper footballerContractMapper,
-                                  FootballerRepository footballerRepository) {
+    public FootballerContractServiceImpl(FootballerContractRepository footballerContractRepository,
+                                         FootballerContractMapper footballerContractMapper,
+                                         FootballerRepository footballerRepository) {
         this.footballerContractRepository = footballerContractRepository;
         this.footballerContractMapper = footballerContractMapper;
         this.footballerRepository = footballerRepository;

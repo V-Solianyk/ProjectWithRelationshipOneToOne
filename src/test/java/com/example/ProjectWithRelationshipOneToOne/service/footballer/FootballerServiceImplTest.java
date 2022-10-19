@@ -1,10 +1,9 @@
-package com.example.ProjectWithRelationshipOneToOne.footballerService;
+package com.example.ProjectWithRelationshipOneToOne.service.footballer;
 
 import com.example.ProjectWithRelationshipOneToOne.dto.FootballerDTO;
 import com.example.ProjectWithRelationshipOneToOne.entity.Footballer;
 import com.example.ProjectWithRelationshipOneToOne.mapper.footballer.FootballerMapper;
 import com.example.ProjectWithRelationshipOneToOne.repository.FootballerRepository;
-import com.example.ProjectWithRelationshipOneToOne.service.footballer.FootballerServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

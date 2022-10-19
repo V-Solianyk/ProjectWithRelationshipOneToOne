@@ -1,4 +1,4 @@
-package com.example.ProjectWithRelationshipOneToOne.footballerController;
+package com.example.ProjectWithRelationshipOneToOne.contoller.footballer;
 
 import com.example.ProjectWithRelationshipOneToOne.controller.FootballerController;
 import com.example.ProjectWithRelationshipOneToOne.dto.FootballerDTO;
@@ -76,6 +76,53 @@ public class FootballerControllerTest {
     }
 
     @Test
-    void get(){}
+    void get() {
+        Long id = 11L;
+
+        FootballerDTO footballerDTO = new FootballerDTO();
+
+        Mockito.when(footballerService.get(id)).thenReturn(footballerDTO);
+
+        ResponseEntity<FootballerDTO> response = footballerController.get(id);
+
+        Assertions.assertNotNull(response.getBody());
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    void create() {
+        FootballerDTO footballerDTO = new FootballerDTO();
+
+        Mockito.when(footballerService.create(footballerDTO)).thenReturn(footballerDTO);
+
+        ResponseEntity<FootballerDTO> response = footballerController.create(footballerDTO);
+
+        Assertions.assertNotNull(response.getBody());
+        Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    }
+
+    @Test
+    void update() {
+        Long id = 100L;
+
+        FootballerDTO footballerDTO = new FootballerDTO();
+
+        Mockito.when(footballerService.update(id, footballerDTO)).thenReturn(footballerDTO);
+
+        ResponseEntity<FootballerDTO> response = footballerController.update(id, footballerDTO);
+
+        Assertions.assertNotNull(response.getBody());
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    void delete() {
+        Long id = 99L;
+
+        ResponseEntity<FootballerDTO> response = footballerController.deleteById(id);
+
+        Mockito.verify(footballerService).delete(id);
+        Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+    }
 }
 
