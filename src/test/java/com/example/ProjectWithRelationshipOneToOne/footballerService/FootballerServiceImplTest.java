@@ -6,30 +6,47 @@ import com.example.ProjectWithRelationshipOneToOne.mapper.footballer.FootballerM
 import com.example.ProjectWithRelationshipOneToOne.repository.FootballerRepository;
 import com.example.ProjectWithRelationshipOneToOne.service.footballer.FootballerServiceImpl;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class FootballerServiceImplTest {
     FootballerRepository footballerRepository = Mockito.mock(FootballerRepository.class);
     FootballerMapper footballerMapper = Mockito.mock(FootballerMapper.class);
     FootballerServiceImpl footballerService = new FootballerServiceImpl(footballerRepository, footballerMapper);
 
+    private Footballer footballer;
+    private FootballerDTO footballerDTO;
+
+    @BeforeEach
+    void beforeEach() {
+        footballer = new Footballer();
+        footballer.setAge(26);
+        footballer.setSurname("Rooney");
+        footballer.setRating(91);
+        footballer.setPersonalData("I am the best player in the world");
+
+        footballerDTO = new FootballerDTO();
+        footballerDTO.setAge(26);
+        footballerDTO.setSurname("Rooney");
+        footballerDTO.setRating(91);
+        footballerDTO.setPersonalData("I am the best player in the world");
+    }
+
     @Test
     void getAll() {
-        Footballer footballer1 = new Footballer();
-        Footballer footballer2 = new Footballer();
-
         Mockito.when(footballerRepository.findAll())
-                .thenReturn(Arrays.asList(footballer1, footballer2));
+                .thenReturn(Arrays.asList(footballer, footballer));
 
         Mockito.when(footballerMapper.footballerToFootballerDTO(Mockito.any(Footballer.class)))
-                .thenReturn(new FootballerDTO());
+                .thenReturn(footballerDTO);
 
         List<FootballerDTO> result = footballerService.getAll();
 
@@ -40,48 +57,86 @@ public class FootballerServiceImplTest {
 
     @Test
     void getAllByAge() {
-        Footballer footballer1 = new Footballer();
-        Footballer footballer2 = new Footballer();
-
         Pageable pageable = PageRequest.of(0, 777);
 
-        FootballerDTO footballerDTO = new FootballerDTO();
-        footballerDTO.setAge(33);
-
-        Mockito.when(footballerRepository.findAllByAge(33, pageable))
-                .thenReturn(Arrays.asList(footballer1, footballer2));
+        Mockito.when(footballerRepository.findAllByAge(26, pageable))
+                .thenReturn(Arrays.asList(footballer, footballer));
 
         Mockito.when(footballerMapper.footballerToFootballerDTO(Mockito.any(Footballer.class)))
                 .thenReturn(footballerDTO);
 
-        List<FootballerDTO> allByAge = footballerService.getAllByAge(33, pageable);
+        List<FootballerDTO> allByAge = footballerService.getAllByAge(26, pageable);
 
         Assertions.assertEquals(2, allByAge.size());
-        Assertions.assertEquals(33, allByAge.get(0).getAge());
-        Assertions.assertEquals(33, allByAge.get(1).getAge());
+        Assertions.assertEquals(26, allByAge.get(0).getAge());
+        Assertions.assertEquals(26, allByAge.get(1).getAge());
     }
 
     @Test
     void getAllBeRating() {
-        Footballer footballer1 = new Footballer();
-        Footballer footballer2 = new Footballer();
-
         Pageable pageable = PageRequest.of(0, 99);
 
-        FootballerDTO footballerDTO = new FootballerDTO();
-        footballerDTO.setRating(90);
-
-        Mockito.when(footballerRepository.findAllByRating(90, pageable))
-                .thenReturn(Arrays.asList(footballer1, footballer2));
+        Mockito.when(footballerRepository.findAllByRating(91, pageable))
+                .thenReturn(Arrays.asList(footballer, footballer));
 
         Mockito.when(footballerMapper.footballerToFootballerDTO(Mockito.any(Footballer.class)))
                 .thenReturn(footballerDTO);
 
-        List<FootballerDTO> allByRating = footballerService.getAllByRating(90, pageable);
+        List<FootballerDTO> allByRating = footballerService.getAllByRating(91, pageable);
 
         Assertions.assertEquals(2, allByRating.size());
-        Assertions.assertEquals(90, allByRating.get(0).getRating());
-        Assertions.assertEquals(90, allByRating.get(1).getRating());
+        Assertions.assertEquals(91, allByRating.get(0).getRating());
+        Assertions.assertEquals(91, allByRating.get(1).getRating());
     }
+
+    @Test
+    void getNotExistsId() {
+        Long notExistId = 2L;
+        String expected = "Footballer not found for id: " + notExistId;
+
+        Mockito.when(footballerRepository.findById(notExistId))
+                .thenReturn(Optional.empty());
+
+        EntityNotFoundException notFoundException = Assertions.assertThrows(EntityNotFoundException.class,
+                () -> footballerService.get(notExistId));
+
+        Assertions.assertEquals(expected, notFoundException.getMessage());
+    }
+
+    @Test
+    void getExistsId() {
+        Long existId = 10L;
+
+        Mockito.when(footballerRepository.findById(existId))
+                .thenReturn(Optional.of(footballer));
+
+        Mockito.when(footballerMapper.footballerToFootballerDTO(footballer))
+                .thenReturn(footballerDTO);
+
+        FootballerDTO footballerDTOResult = footballerService.get(existId);
+
+        Assertions.assertEquals(footballerDTOResult.getAge(), footballer.getAge());
+        Assertions.assertEquals(footballerDTOResult.getRating(), footballer.getRating());
+        Assertions.assertEquals(footballerDTOResult.getPersonalData(), footballer.getPersonalData());
+        Assertions.assertEquals(footballerDTOResult.getSurname(), footballer.getSurname());
+    }
+
+    @Test
+    void create() {
+        Mockito.when(footballerMapper.footballerDTOToFootballer(footballerDTO))
+                .thenReturn(footballer);
+
+        Mockito.when(footballerRepository.save(Mockito.any(Footballer.class))).thenReturn(footballer);
+
+        FootballerDTO result = footballerService.create(footballerDTO);
+
+        Assertions.assertEquals(result.getAge(), footballer.getAge());
+        Assertions.assertEquals(result.getRating(), footballer.getRating());
+        Assertions.assertEquals(result.getPersonalData(), footballer.getPersonalData());
+        Assertions.assertEquals(result.getSurname(), footballer.getSurname());
+    }
+
+
+
 
 }
