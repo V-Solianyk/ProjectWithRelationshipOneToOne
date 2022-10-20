@@ -51,6 +51,13 @@ public class FootballerContractServiceImpl implements FootballerContractService 
     }
 
     @Override
+    public List<FootballerContractDTO> getAllByAnnualSalary(Integer annualSalary, Pageable pageable) {
+        return footballerContractRepository.findAllByAnnualSalary(annualSalary, pageable).stream()
+                .map(footballerContractMapper::footballerContractToFootballerContractDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public FootballerContractDTO get(Long id) {
         FootballerContract footballerContract = footballerContractRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Contract does not exist for this ID."));

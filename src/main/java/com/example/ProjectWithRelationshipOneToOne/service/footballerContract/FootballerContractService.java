@@ -12,6 +12,8 @@ public interface FootballerContractService {
 
     List<FootballerContractDTO> getAllByAutomaticExtension(Boolean automaticExtension, Pageable pageable);
 
+    List<FootballerContractDTO> getAllByAnnualSalary(Integer annualSalary, Pageable pageable);
+
     FootballerContractDTO get(Long id);
 
     FootballerContractDTO create(FootballerContractDTO footballerContractDTO);

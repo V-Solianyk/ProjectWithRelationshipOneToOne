@@ -50,6 +50,12 @@ public class FootballerContractController {
         return ResponseEntity.ok(footballerContractService.getAllByAutomaticExtension(automaticExtension, pageable));
     }
 
+    @GetMapping("/annualSalary")
+    ResponseEntity<List<FootballerContractDTO>> getAnnualSalary(@RequestParam("annualSalary") Integer annualSalary,
+                                                                Pageable pageable) {
+        return ResponseEntity.ok(footballerContractService.getAllByAnnualSalary(annualSalary, pageable));
+    }
+
     @PostMapping
     ResponseEntity<FootballerContractDTO> create(@RequestBody FootballerContractDTO footballerContractDTO) {
         return new ResponseEntity<FootballerContractDTO>(footballerContractService.create(footballerContractDTO),
