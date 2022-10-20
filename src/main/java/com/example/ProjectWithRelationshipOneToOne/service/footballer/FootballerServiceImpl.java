@@ -45,6 +45,13 @@ public class FootballerServiceImpl implements FootballerService {
     }
 
     @Override
+    public List<FootballerDTO> getAllByTextContainsIgnoreCase(String keyword, Pageable pageable) {
+        return footballerRepository.findAllByTextContainsIgnoreCase(keyword, pageable).stream()
+                .map(footballerMapper::footballerToFootballerDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public FootballerDTO get(Long id) {
         Footballer footballer = footballerRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("The footballer not found for id: " + id));

@@ -43,6 +43,12 @@ public class FootballerController {
         return ResponseEntity.ok(footballerService.getAllByRating(rating, pageable));
     }
 
+    @GetMapping("/keyword")
+    public ResponseEntity<List<FootballerDTO>> getAllByTextLike(@RequestParam("keyword") String keyword,
+                                                                Pageable pageable) {
+        return ResponseEntity.ok(footballerService.getAllByTextContainsIgnoreCase(keyword, pageable));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<FootballerDTO> get(@PathVariable Long id) {
         return ResponseEntity.ok(footballerService.get(id));

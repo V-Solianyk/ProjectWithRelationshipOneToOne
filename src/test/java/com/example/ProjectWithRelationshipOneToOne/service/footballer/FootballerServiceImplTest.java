@@ -4,6 +4,7 @@ import com.example.ProjectWithRelationshipOneToOne.dto.FootballerDTO;
 import com.example.ProjectWithRelationshipOneToOne.entity.Footballer;
 import com.example.ProjectWithRelationshipOneToOne.mapper.footballer.FootballerMapper;
 import com.example.ProjectWithRelationshipOneToOne.repository.FootballerRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -86,6 +87,24 @@ public class FootballerServiceImplTest {
         Assertions.assertEquals(2, allByRating.size());
         Assertions.assertEquals(91, allByRating.get(0).getRating());
         Assertions.assertEquals(91, allByRating.get(1).getRating());
+    }
+
+    @Test
+    void getAllByTextContainsIgnoreCase() {
+        Pageable pageable = PageRequest.of(0, 999);
+        String keyword = "Best";
+
+        Mockito.when(footballerRepository.findAllByTextContainsIgnoreCase(keyword, pageable))
+                .thenReturn(List.of(footballer, footballer));
+
+        Mockito.when(footballerMapper.footballerToFootballerDTO(Mockito.any(Footballer.class)))
+                .thenReturn(footballerDTO, footballerDTO);
+
+        List<FootballerDTO> allByTextIgnoreCase = footballerService.getAllByTextContainsIgnoreCase(keyword, pageable);
+
+        Assertions.assertEquals(2, allByTextIgnoreCase.size());
+        Assertions.assertTrue(StringUtils.containsIgnoreCase(allByTextIgnoreCase.get(0).getPersonalData(), keyword));
+        Assertions.assertTrue(StringUtils.containsIgnoreCase(allByTextIgnoreCase.get(1).getPersonalData(), keyword));
     }
 
     @Test

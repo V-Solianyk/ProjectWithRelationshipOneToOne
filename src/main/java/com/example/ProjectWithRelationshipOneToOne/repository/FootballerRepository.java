@@ -13,4 +13,6 @@ public interface FootballerRepository extends JpaRepository<Footballer, Long> {
 
     List<Footballer> findAllByRating(Integer rating, Pageable pageable);
 
+    List<Footballer> findAllByTextContainsIgnoreCase(String keyword, Pageable pageable);
+
 }

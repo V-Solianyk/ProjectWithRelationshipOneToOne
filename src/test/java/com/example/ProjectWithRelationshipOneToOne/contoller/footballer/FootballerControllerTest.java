@@ -3,10 +3,12 @@ package com.example.ProjectWithRelationshipOneToOne.contoller.footballer;
 import com.example.ProjectWithRelationshipOneToOne.controller.FootballerController;
 import com.example.ProjectWithRelationshipOneToOne.dto.FootballerDTO;
 import com.example.ProjectWithRelationshipOneToOne.service.footballer.FootballerService;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -73,6 +75,30 @@ public class FootballerControllerTest {
         Assertions.assertEquals(rating, allByRating.getBody().get(0).getRating());
         Assertions.assertEquals(rating, allByRating.getBody().get(1).getRating());
         Assertions.assertEquals(HttpStatus.OK, allByRating.getStatusCode());
+    }
+
+    @Test
+    void getAllByTextLike() {
+        Pageable pageable = PageRequest.of(0, 100);
+
+        String keyword = "PsG";
+
+        FootballerDTO footballerDTO1 = new FootballerDTO();
+        footballerDTO1.setPersonalData("I am married and playing for PSG");
+
+        FootballerDTO footballerDTO2 = new FootballerDTO();
+        footballerDTO2.setPersonalData("I am the best player in the world and I am playing for PSG");
+
+        Mockito.when(footballerService.getAllByTextContainsIgnoreCase(keyword, pageable))
+                .thenReturn(List.of(footballerDTO1, footballerDTO2));
+
+        ResponseEntity<List<FootballerDTO>> allByTextLike = footballerController.getAllByTextLike(keyword, pageable);
+
+        Assertions.assertNotNull(allByTextLike.getBody());
+        Assertions.assertEquals(2, allByTextLike.getBody().size());
+        Assertions.assertTrue(StringUtils.containsIgnoreCase(allByTextLike.getBody().get(0).getPersonalData(), keyword));
+        Assertions.assertTrue(StringUtils.containsIgnoreCase(allByTextLike.getBody().get(1).getPersonalData(), keyword));
+        Assertions.assertEquals(HttpStatus.OK, allByTextLike.getStatusCode());
     }
 
     @Test

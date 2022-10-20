@@ -13,9 +13,11 @@ import org.mockito.Mockito;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
-public class FootballerContractImplTest {
+public class FootballerContractServiceImplTest {
     FootballerContractRepository footballerContractRepository = Mockito.mock(FootballerContractRepository.class);
     FootballerContractMapper footballerContractMapper = Mockito.mock(FootballerContractMapper.class);
     FootballerRepository footballerRepository = Mockito.mock(FootballerRepository.class);
@@ -100,5 +102,31 @@ public class FootballerContractImplTest {
     }
 
     @Test
-    void getAllByAnnualSalary(){}
+    void getAllByAnnualSalary() {
+        Mockito.when(footballerContractRepository.findAllByAnnualSalary(annualSalary, pageable))
+                .thenReturn(List.of(footballerContract, footballerContract));
+
+        Mockito.when(footballerContractMapper
+                        .footballerContractToFootballerContractDTO(Mockito.any(FootballerContract.class)))
+                .thenReturn(footballerContractDTO);
+
+        List<FootballerContractDTO> listSalary = footballerContractService.getAllByAnnualSalary(annualSalary, pageable);
+
+        Assertions.assertEquals(2, listSalary.size());
+        Assertions.assertEquals(annualSalary, listSalary.get(0).getAnnualSalary());
+        Assertions.assertEquals(annualSalary, listSalary.get(1).getAnnualSalary());
+    }
+
+    @Test
+    void getNotExistId() {
+        Long notExistId = 999L;
+
+        String expectedMassage = "Contract does not exist for this ID.";
+
+        Mockito.when(footballerContractRepository.findById(notExistId)).thenReturn(Optional.empty());
+
+        EntityNotFoundException notFoundException = Assertions.assertThrows(EntityNotFoundException.class,
+                () -> footballerContractService.get(notExistId));
+        Assertions.assertEquals(expectedMassage, notFoundException.getMessage());
+    }
 }
