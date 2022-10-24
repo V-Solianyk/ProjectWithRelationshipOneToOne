@@ -94,17 +94,18 @@ public class FootballerServiceImplTest {
         Pageable pageable = PageRequest.of(0, 999);
         String keyword = "Best";
 
-        Mockito.when(footballerRepository.findAllByTextContainsIgnoreCase(keyword, pageable))
+        Mockito.when(footballerRepository.findAllByPersonalDataContainsIgnoreCase(keyword, pageable))
                 .thenReturn(List.of(footballer, footballer));
 
         Mockito.when(footballerMapper.footballerToFootballerDTO(Mockito.any(Footballer.class)))
                 .thenReturn(footballerDTO, footballerDTO);
 
-        List<FootballerDTO> allByTextIgnoreCase = footballerService.getAllByTextContainsIgnoreCase(keyword, pageable);
+        List<FootballerDTO> containsIgnoreCase = footballerService
+                .getAllByPersonalDataContainsIgnoreCase(keyword, pageable);
 
-        Assertions.assertEquals(2, allByTextIgnoreCase.size());
-        Assertions.assertTrue(StringUtils.containsIgnoreCase(allByTextIgnoreCase.get(0).getPersonalData(), keyword));
-        Assertions.assertTrue(StringUtils.containsIgnoreCase(allByTextIgnoreCase.get(1).getPersonalData(), keyword));
+        Assertions.assertEquals(2, containsIgnoreCase.size());
+        Assertions.assertTrue(StringUtils.containsIgnoreCase(containsIgnoreCase.get(0).getPersonalData(), keyword));
+        Assertions.assertTrue(StringUtils.containsIgnoreCase(containsIgnoreCase.get(1).getPersonalData(), keyword));
     }
 
     @Test

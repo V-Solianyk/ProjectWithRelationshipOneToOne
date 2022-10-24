@@ -29,47 +29,47 @@ public class FootballerContractController {
     }
 
     @GetMapping
-    ResponseEntity<List<FootballerContractDTO>> getAll() {
+     public ResponseEntity<List<FootballerContractDTO>> getAll() {
         return ResponseEntity.ok(footballerContractService.getAll());
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<FootballerContractDTO> get(@PathVariable Long id) {
+    public ResponseEntity<FootballerContractDTO> get(@PathVariable Long id) {
         return ResponseEntity.ok(footballerContractService.get(id));
     }
 
     @GetMapping("/duration")
-    ResponseEntity<List<FootballerContractDTO>> getAllByDuration(@RequestParam("duration") Integer duration,
+    public ResponseEntity<List<FootballerContractDTO>> getAllByDuration(@RequestParam("duration") Integer duration,
                                                                  Pageable pageable) {
         return ResponseEntity.ok(footballerContractService.getAllByDuration(duration, pageable));
     }
 
     @GetMapping("/automaticExtension")
-    ResponseEntity<List<FootballerContractDTO>> getAllByAutomaticExtension(
+    public ResponseEntity<List<FootballerContractDTO>> getAllByAutomaticExtension(
             @RequestParam("automaticExtension") Boolean automaticExtension, Pageable pageable) {
         return ResponseEntity.ok(footballerContractService.getAllByAutomaticExtension(automaticExtension, pageable));
     }
 
     @GetMapping("/annualSalary")
-    ResponseEntity<List<FootballerContractDTO>> getAnnualSalary(@RequestParam("annualSalary") Integer annualSalary,
+    public ResponseEntity<List<FootballerContractDTO>> getAnnualSalary(@RequestParam("annualSalary") Integer annualSalary,
                                                                 Pageable pageable) {
         return ResponseEntity.ok(footballerContractService.getAllByAnnualSalary(annualSalary, pageable));
     }
 
     @PostMapping
-    ResponseEntity<FootballerContractDTO> create(@RequestBody FootballerContractDTO footballerContractDTO) {
+    public ResponseEntity<FootballerContractDTO> create(@RequestBody FootballerContractDTO footballerContractDTO) {
         return new ResponseEntity<FootballerContractDTO>(footballerContractService.create(footballerContractDTO),
                 HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<FootballerContractDTO> update(@PathVariable Long id,
+    public ResponseEntity<FootballerContractDTO> update(@PathVariable Long id,
                                                  @RequestBody FootballerContractDTO footballerContractDTO) {
         return ResponseEntity.ok(footballerContractService.update(id, footballerContractDTO));
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<FootballerContractDTO> delete(@PathVariable Long id) {
+    public ResponseEntity<FootballerContractDTO> delete(@PathVariable Long id) {
         footballerContractService.delete(id);
 
         return ResponseEntity.noContent().build();

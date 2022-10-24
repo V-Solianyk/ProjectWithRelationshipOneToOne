@@ -45,8 +45,8 @@ public class FootballerServiceImpl implements FootballerService {
     }
 
     @Override
-    public List<FootballerDTO> getAllByTextContainsIgnoreCase(String keyword, Pageable pageable) {
-        return footballerRepository.findAllByTextContainsIgnoreCase(keyword, pageable).stream()
+    public List<FootballerDTO> getAllByPersonalDataContainsIgnoreCase(String keyword, Pageable pageable) {
+        return footballerRepository.findAllByPersonalDataContainsIgnoreCase(keyword, pageable).stream()
                 .map(footballerMapper::footballerToFootballerDTO)
                 .collect(Collectors.toList());
     }

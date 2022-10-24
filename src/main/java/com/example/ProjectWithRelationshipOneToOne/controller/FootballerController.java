@@ -44,9 +44,9 @@ public class FootballerController {
     }
 
     @GetMapping("/keyword")
-    public ResponseEntity<List<FootballerDTO>> getAllByTextLike(@RequestParam("keyword") String keyword,
+    public ResponseEntity<List<FootballerDTO>> getAllByPersonalDataLike(@RequestParam("keyword") String keyword,
                                                                 Pageable pageable) {
-        return ResponseEntity.ok(footballerService.getAllByTextContainsIgnoreCase(keyword, pageable));
+        return ResponseEntity.ok(footballerService.getAllByPersonalDataContainsIgnoreCase(keyword, pageable));
     }
 
     @GetMapping("/{id}")

@@ -13,7 +13,7 @@ public interface FootballerService {
 
     List<FootballerDTO> getAllByRating(Integer rating, Pageable pageable);
 
-    List<FootballerDTO> getAllByTextContainsIgnoreCase(String keyword, Pageable pageable);
+    List<FootballerDTO> getAllByPersonalDataContainsIgnoreCase(String keyword, Pageable pageable);
 
     FootballerDTO get(Long id);
 

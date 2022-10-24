@@ -78,7 +78,7 @@ public class FootballerControllerTest {
     }
 
     @Test
-    void getAllByTextLike() {
+    void getAllByPersonalDataLike() {
         Pageable pageable = PageRequest.of(0, 100);
 
         String keyword = "PsG";
@@ -89,16 +89,19 @@ public class FootballerControllerTest {
         FootballerDTO footballerDTO2 = new FootballerDTO();
         footballerDTO2.setPersonalData("I am the best player in the world and I am playing for PSG");
 
-        Mockito.when(footballerService.getAllByTextContainsIgnoreCase(keyword, pageable))
+        Mockito.when(footballerService.getAllByPersonalDataContainsIgnoreCase(keyword, pageable))
                 .thenReturn(List.of(footballerDTO1, footballerDTO2));
 
-        ResponseEntity<List<FootballerDTO>> allByTextLike = footballerController.getAllByTextLike(keyword, pageable);
+        ResponseEntity<List<FootballerDTO>> allByPersonalDataLike = footballerController
+                .getAllByPersonalDataLike(keyword, pageable);
 
-        Assertions.assertNotNull(allByTextLike.getBody());
-        Assertions.assertEquals(2, allByTextLike.getBody().size());
-        Assertions.assertTrue(StringUtils.containsIgnoreCase(allByTextLike.getBody().get(0).getPersonalData(), keyword));
-        Assertions.assertTrue(StringUtils.containsIgnoreCase(allByTextLike.getBody().get(1).getPersonalData(), keyword));
-        Assertions.assertEquals(HttpStatus.OK, allByTextLike.getStatusCode());
+        Assertions.assertNotNull(allByPersonalDataLike.getBody());
+        Assertions.assertEquals(2, allByPersonalDataLike.getBody().size());
+        Assertions.assertTrue(StringUtils.containsIgnoreCase(allByPersonalDataLike
+                .getBody().get(0).getPersonalData(), keyword));
+        Assertions.assertTrue(StringUtils.containsIgnoreCase(allByPersonalDataLike
+                .getBody().get(1).getPersonalData(), keyword));
+        Assertions.assertEquals(HttpStatus.OK, allByPersonalDataLike.getStatusCode());
     }
 
     @Test
