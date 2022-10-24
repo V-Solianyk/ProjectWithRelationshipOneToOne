@@ -60,7 +60,7 @@ public class FootballerContractServiceImpl implements FootballerContractService 
     @Override
     public FootballerContractDTO get(Long id) {
         FootballerContract footballerContract = footballerContractRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Contract does not exist for this ID."));
+                .orElseThrow(() -> new EntityNotFoundException("The contract does not exist for this ID."));
 
         return footballerContractMapper.footballerContractToFootballerContractDTO(footballerContract);
     }
@@ -68,7 +68,7 @@ public class FootballerContractServiceImpl implements FootballerContractService 
     @Override
     public FootballerContractDTO create(FootballerContractDTO footballerContractDTO) {
         Footballer footballer = footballerRepository.findById(footballerContractDTO.getFootballerId())
-                .orElseThrow(() -> new EntityNotFoundException("Footballer does not exist for this Id"));
+                .orElseThrow(() -> new EntityNotFoundException("The footballer does not exist for this Id"));
 
         FootballerContract footballerContract = footballerContractMapper
                 .footballerContractDTOToFootballerContract(footballerContractDTO);
@@ -84,7 +84,7 @@ public class FootballerContractServiceImpl implements FootballerContractService 
     @Override
     public FootballerContractDTO update(Long id, FootballerContractDTO footballerContractDTO) {
         footballerContractRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Contract does not found for this ID."));
+                .orElseThrow(() -> new EntityNotFoundException("The contract does not found for this ID."));
 
         FootballerContract footballerContract = footballerContractMapper
                 .footballerContractDTOToFootballerContract(footballerContractDTO);
@@ -98,7 +98,7 @@ public class FootballerContractServiceImpl implements FootballerContractService 
     @Override
     public void delete(Long id) {
         footballerContractRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Contract does not exist for this ID."));
+                .orElseThrow(() -> new EntityNotFoundException("The contract does not exist for this ID."));
 
         footballerContractRepository.deleteById(id);
 

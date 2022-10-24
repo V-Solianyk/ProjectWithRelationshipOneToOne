@@ -129,4 +129,118 @@ public class FootballerContractServiceImplTest {
                 () -> footballerContractService.get(notExistId));
         Assertions.assertEquals(expectedMassage, notFoundException.getMessage());
     }
+
+    @Test
+    void getExistId() {
+        Long id = 10L;
+
+        Mockito.when(footballerContractRepository.findById(id)).thenReturn(Optional.of(footballerContract));
+
+        Mockito.when(footballerContractMapper.footballerContractToFootballerContractDTO(footballerContract))
+                .thenReturn(footballerContractDTO);
+
+        FootballerContractDTO footballerContractDTOResult = footballerContractService.get(id);
+
+        Assertions.assertEquals(id, footballerContractDTOResult.getFootballerId());
+        Assertions.assertEquals(annualSalary, footballerContractDTOResult.getAnnualSalary());
+        Assertions.assertEquals(duration, footballerContractDTOResult.getDuration());
+        Assertions.assertEquals(automaticExtension, footballerContractDTOResult.getAutomaticExtension());
+    }
+
+    @Test
+    void createNotExistFootballer() {
+        Long notExistId = 888L;
+
+        String massage = "The footballer does not exist for this Id";
+
+        Mockito.when(footballerRepository.findById(notExistId)).thenReturn(Optional.empty());
+
+        EntityNotFoundException notFoundException = Assertions.assertThrows(EntityNotFoundException.class,
+                () -> footballerContractService.create(footballerContractDTO));
+
+        Assertions.assertEquals(massage, notFoundException.getMessage());
+
+    }
+
+    @Test
+    void createExistFootballer() {
+        Long id = 10L;
+
+        Mockito.when(footballerRepository.findById(id)).thenReturn(Optional.of(footballer));
+
+        Mockito.when(footballerContractMapper.footballerContractDTOToFootballerContract(footballerContractDTO))
+                .thenReturn(footballerContract);
+
+        Mockito.when(footballerContractRepository.save(Mockito.any(FootballerContract.class)))
+                .thenReturn(footballerContract);
+
+        Mockito.when(footballerRepository.save(Mockito.any(Footballer.class)))
+                .thenReturn(footballer);
+
+        FootballerContractDTO dtoResult = footballerContractService.create(footballerContractDTO);
+
+        Assertions.assertEquals(id, dtoResult.getFootballerId());
+        Assertions.assertEquals(annualSalary, dtoResult.getAnnualSalary());
+        Assertions.assertEquals(duration, dtoResult.getDuration());
+        Assertions.assertEquals(automaticExtension, dtoResult.getAutomaticExtension());
+    }
+
+    @Test
+    void updateNotExists() {
+        Long notExistId = 777L;
+
+        String expectedMassage = "The contract does not found for this ID.";
+
+        Mockito.when(footballerContractRepository.findById(notExistId)).thenReturn(Optional.empty());
+
+        EntityNotFoundException notFoundException = Assertions.assertThrows(EntityNotFoundException.class,
+                () -> footballerContractService.update(notExistId, footballerContractDTO));
+
+        Assertions.assertEquals(expectedMassage, notFoundException.getMessage());
+    }
+
+    @Test
+    void updateExists() {
+        Long id = 10L;
+
+        Mockito.when(footballerContractRepository.findById(id)).thenReturn(Optional.of(footballerContract));
+
+        Mockito.when(footballerContractMapper.footballerContractDTOToFootballerContract(footballerContractDTO))
+                .thenReturn(footballerContract);
+
+        Mockito.when(footballerContractRepository.save(Mockito.any(FootballerContract.class)))
+                .thenReturn(footballerContract);
+
+        FootballerContractDTO update = footballerContractService.update(id, footballerContractDTO);
+
+        Assertions.assertEquals(id, update.getFootballerId());
+        Assertions.assertEquals(annualSalary, update.getAnnualSalary());
+        Assertions.assertEquals(duration, update.getDuration());
+        Assertions.assertEquals(automaticExtension, update.getAutomaticExtension());
+    }
+
+    @Test
+    void deleteNotExistId() {
+        Long notExistId = 444L;
+
+        String expectedMassage = "The contract does not exist for this ID.";
+
+        Mockito.when(footballerContractRepository.findById(notExistId)).thenReturn(Optional.empty());
+
+        EntityNotFoundException notFoundException = Assertions.assertThrows(EntityNotFoundException.class,
+                () -> footballerContractService.delete(notExistId));
+
+        Assertions.assertEquals(expectedMassage, notFoundException.getMessage());
+    }
+
+    @Test
+    void deleteExistId() {
+        Long existId = 100L;
+
+        Mockito.when(footballerContractRepository.findById(existId)).thenReturn(Optional.of(footballerContract));
+
+        footballerContractRepository.deleteById(existId);
+
+        Mockito.verify(footballerContractRepository).deleteById(existId);
+    }
 }
