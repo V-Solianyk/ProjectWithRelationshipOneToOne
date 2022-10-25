@@ -5,5 +5,6 @@ import com.example.ProjectWithRelationshipOneToOne.entity.FootballerContract;
 
 public interface FootballerContractMapper {
     FootballerContractDTO footballerContractToFootballerContractDTO(FootballerContract footballerContract);
+
     FootballerContract footballerContractDTOToFootballerContract(FootballerContractDTO footballerContractDTO);
 }

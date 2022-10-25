@@ -101,6 +101,5 @@ public class FootballerContractServiceImpl implements FootballerContractService 
                 .orElseThrow(() -> new EntityNotFoundException("The contract does not exist for this ID."));
 
         footballerContractRepository.deleteById(id);
-
     }
 }
