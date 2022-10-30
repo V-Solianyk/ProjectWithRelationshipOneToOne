@@ -151,6 +151,7 @@ public class FootballerControllerTest {
         ResponseEntity<FootballerDTO> response = footballerController.deleteById(id);
 
         Mockito.verify(footballerService).delete(id);
+
         Assertions.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
     }
 }

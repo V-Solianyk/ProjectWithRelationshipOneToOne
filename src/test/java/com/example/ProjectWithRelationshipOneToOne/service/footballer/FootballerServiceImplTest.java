@@ -73,7 +73,7 @@ public class FootballerServiceImplTest {
     }
 
     @Test
-    void getAllBeRating() {
+    void getAllByRating() {
         Pageable pageable = PageRequest.of(0, 99);
 
         Mockito.when(footballerRepository.findAllByRating(91, pageable))
@@ -210,7 +210,7 @@ public class FootballerServiceImplTest {
         Mockito.when(footballerRepository.findById(existId))
                 .thenReturn(Optional.of(footballer));
 
-        footballerRepository.deleteById(existId);
+        footballerService.delete(existId);
         Mockito.verify(footballerRepository).deleteById(existId);
     }
 }
