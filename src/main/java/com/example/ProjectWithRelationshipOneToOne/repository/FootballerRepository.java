@@ -9,9 +9,9 @@ import java.util.List;
 
 @Repository
 public interface FootballerRepository extends JpaRepository<Footballer, Long> {
-    List<Footballer> findAllByAge(Integer age, Pageable pageable);
+    List<Footballer> findAllByAge(int age, Pageable pageable);
 
-    List<Footballer> findAllByRating(Integer rating, Pageable pageable);
+    List<Footballer> findAllByRating(int rating, Pageable pageable);
 
     List<Footballer> findAllByPersonalDataContainsIgnoreCase(String keyword, Pageable pageable);
 

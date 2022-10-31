@@ -11,5 +11,5 @@ public interface FootballerContractRepository extends JpaRepository<FootballerCo
 
     List<FootballerContract> findAllByAutomaticExtension(Boolean automaticExtension, Pageable pageable);
 
-    List<FootballerContract> findAllByAnnualSalary(Integer annualSalary, Pageable pageable);
+    List<FootballerContract> findAllByAnnualSalary(int annualSalary, Pageable pageable);
 }

@@ -11,6 +11,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.util.Currency;
 
 @Data
 @Entity
@@ -22,10 +23,12 @@ public class FootballerContract {
 
     @Min(1)
     @Max(5)
-    private Integer duration;
+    private int duration;
 
     @Min(0)
-    private Integer annualSalary;
+    private int annualSalary;
+
+    private Currency currency;
 
     private Boolean automaticExtension;
 
@@ -40,6 +43,7 @@ public class FootballerContract {
                 "id=" + id +
                 ", duration=" + duration +
                 ", annualSalary=" + annualSalary +
+                ", currency=" + currency +
                 ", automaticExtension=" + automaticExtension +
                 '}';
     }

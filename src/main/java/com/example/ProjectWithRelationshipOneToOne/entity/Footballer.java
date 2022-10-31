@@ -31,11 +31,11 @@ public class Footballer {
 
     @Min(15)
     @Max(38)
-    private Integer age;
+    private int age;
 
     @Min(50)
     @Max(99)
-    private Integer rating;
+    private int rating;
 
     @NotNull
     private String personalData;

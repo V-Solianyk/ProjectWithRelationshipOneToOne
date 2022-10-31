@@ -6,9 +6,9 @@ import lombok.Data;
 public class FootballerDTO {
     private String surname;
 
-    private Integer age;
+    private int age;
 
-    private Integer rating;
+    private int rating;
 
     private String personalData;
 

@@ -51,7 +51,7 @@ public class FootballerContractServiceImpl implements FootballerContractService 
     }
 
     @Override
-    public List<FootballerContractDTO> getAllByAnnualSalary(Integer annualSalary, Pageable pageable) {
+    public List<FootballerContractDTO> getAllByAnnualSalary(int annualSalary, Pageable pageable) {
         return footballerContractRepository.findAllByAnnualSalary(annualSalary, pageable).stream()
                 .map(footballerContractMapper::footballerContractToFootballerContractDTO)
                 .collect(Collectors.toList());

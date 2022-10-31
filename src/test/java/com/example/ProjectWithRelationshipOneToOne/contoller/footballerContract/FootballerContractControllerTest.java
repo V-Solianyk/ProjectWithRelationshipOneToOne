@@ -85,7 +85,7 @@ public class FootballerContractControllerTest {
 
     @Test
     void getAllByAnnualSalary() {
-        Integer annualSalary = 999999;
+        int annualSalary = 999999;
 
         FootballerContractDTO footballerContractDTO1 = new FootballerContractDTO();
         footballerContractDTO1.setAnnualSalary(annualSalary);

@@ -4,6 +4,8 @@ import com.example.ProjectWithRelationshipOneToOne.dto.FootballerContractDTO;
 import com.example.ProjectWithRelationshipOneToOne.entity.FootballerContract;
 import org.springframework.stereotype.Component;
 
+import java.util.Currency;
+
 @Component
 public class FootballerContractMapperImpl implements FootballerContractMapper {
     @Override
@@ -13,6 +15,7 @@ public class FootballerContractMapperImpl implements FootballerContractMapper {
         footballerContractDTO.setAutomaticExtension(footballerContract.getAutomaticExtension());
         footballerContractDTO.setAnnualSalary(footballerContract.getAnnualSalary());
         footballerContractDTO.setFootballerId(footballerContract.getFootballer().getId());
+        footballerContractDTO.setCurrencyCode(footballerContract.getCurrency().getCurrencyCode());
 
         return footballerContractDTO;
     }
@@ -23,6 +26,7 @@ public class FootballerContractMapperImpl implements FootballerContractMapper {
         footballerContract.setAnnualSalary(footballerContractDTO.getAnnualSalary());
         footballerContract.setDuration(footballerContractDTO.getDuration());
         footballerContract.setAutomaticExtension(footballerContractDTO.getAutomaticExtension());
+        footballerContract.setCurrency(Currency.getInstance(footballerContractDTO.getCurrencyCode()));
 
         return footballerContract;
     }

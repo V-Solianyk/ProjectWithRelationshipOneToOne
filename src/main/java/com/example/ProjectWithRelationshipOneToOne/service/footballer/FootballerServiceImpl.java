@@ -31,14 +31,14 @@ public class FootballerServiceImpl implements FootballerService {
     }
 
     @Override
-    public List<FootballerDTO> getAllByAge(Integer age, Pageable pageable) {
+    public List<FootballerDTO> getAllByAge(int age, Pageable pageable) {
         return footballerRepository.findAllByAge(age, pageable).stream()
                 .map(footballerMapper::footballerToFootballerDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<FootballerDTO> getAllByRating(Integer rating, Pageable pageable) {
+    public List<FootballerDTO> getAllByRating(int rating, Pageable pageable) {
         return footballerRepository.findAllByRating(rating, pageable).stream()
                 .map(footballerMapper::footballerToFootballerDTO)
                 .collect(Collectors.toList());

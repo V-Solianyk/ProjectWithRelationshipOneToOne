@@ -6,6 +6,8 @@ import com.example.ProjectWithRelationshipOneToOne.entity.FootballerContract;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Currency;
+
 public class FootballerContractMapperImplTest {
     FootballerContractMapperImpl footballerContractMapperImpl = new FootballerContractMapperImpl();
 
@@ -19,6 +21,7 @@ public class FootballerContractMapperImplTest {
         footballerContract.setAutomaticExtension(true);
         footballerContract.setDuration(4);
         footballerContract.setAnnualSalary(111111);
+        footballerContract.setCurrency(Currency.getInstance("USD"));
 
         FootballerContractDTO footballerContractDTO = footballerContractMapperImpl
                 .footballerContractToFootballerContractDTO(footballerContract);
@@ -27,6 +30,7 @@ public class FootballerContractMapperImplTest {
         Assertions.assertEquals(footballerContract.getAutomaticExtension(), footballerContractDTO.getAutomaticExtension());
         Assertions.assertEquals(footballerContract.getDuration(), footballerContractDTO.getDuration());
         Assertions.assertEquals(footballerContract.getAnnualSalary(), footballerContractDTO.getAnnualSalary());
+        Assertions.assertEquals(footballerContractDTO.getCurrencyCode(), footballerContract.getCurrency().getCurrencyCode());
     }
 
     @Test
@@ -35,6 +39,7 @@ public class FootballerContractMapperImplTest {
         footballerContractDTO.setAnnualSalary(222222);
         footballerContractDTO.setDuration(5);
         footballerContractDTO.setAutomaticExtension(true);
+        footballerContractDTO.setCurrencyCode("USD");
 
         FootballerContract footballerContract = footballerContractMapperImpl
                 .footballerContractDTOToFootballerContract(footballerContractDTO);
@@ -42,5 +47,6 @@ public class FootballerContractMapperImplTest {
         Assertions.assertEquals(footballerContractDTO.getAnnualSalary(), footballerContract.getAnnualSalary());
         Assertions.assertEquals(footballerContractDTO.getDuration(), footballerContract.getDuration());
         Assertions.assertEquals(footballerContractDTO.getAutomaticExtension(), footballerContract.getAutomaticExtension());
+        Assertions.assertEquals(footballerContractDTO.getCurrencyCode(), footballerContract.getCurrency().getCurrencyCode());
     }
 }

@@ -51,7 +51,7 @@ public class FootballerContractController {
     }
 
     @GetMapping("/annualSalary")
-    public ResponseEntity<List<FootballerContractDTO>> getAnnualSalary(@RequestParam("annualSalary") Integer annualSalary,
+    public ResponseEntity<List<FootballerContractDTO>> getAnnualSalary(@RequestParam("annualSalary") int annualSalary,
                                                                 Pageable pageable) {
         return ResponseEntity.ok(footballerContractService.getAllByAnnualSalary(annualSalary, pageable));
     }

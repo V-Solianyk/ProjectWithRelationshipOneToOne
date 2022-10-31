@@ -34,12 +34,12 @@ public class FootballerController {
     }
 
     @GetMapping("/age")
-    public ResponseEntity<List<FootballerDTO>> getAllByAge(@RequestParam("age") Integer age, Pageable pageable) {
+    public ResponseEntity<List<FootballerDTO>> getAllByAge(@RequestParam("age") int age, Pageable pageable) {
         return ResponseEntity.ok(footballerService.getAllByAge(age, pageable));
     }
 
     @GetMapping("/rating")
-    public ResponseEntity<List<FootballerDTO>> getAllByRating(@RequestParam("rating") Integer rating, Pageable pageable) {
+    public ResponseEntity<List<FootballerDTO>> getAllByRating(@RequestParam("rating") int rating, Pageable pageable) {
         return ResponseEntity.ok(footballerService.getAllByRating(rating, pageable));
     }
 
