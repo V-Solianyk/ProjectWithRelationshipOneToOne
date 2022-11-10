@@ -171,9 +171,6 @@ public class FootballerContractServiceImplTest {
         Mockito.when(footballerContractMapper.footballerContractDTOToFootballerContract(footballerContractDTO))
                 .thenReturn(footballerContract);
 
-        Mockito.when(footballerContractRepository.save(Mockito.any(FootballerContract.class)))
-                .thenReturn(footballerContract);
-
         Mockito.when(footballerRepository.save(Mockito.any(Footballer.class)))
                 .thenReturn(footballer);
 

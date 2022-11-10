@@ -74,7 +74,6 @@ public class FootballerContractServiceImpl implements FootballerContractService 
                 .footballerContractDTOToFootballerContract(footballerContractDTO);
         footballerContract.setFootballer(footballer);
 
-        footballerContractRepository.save(footballerContract);
         footballer.setFootballerContract(footballerContract);
         footballerRepository.save(footballer);
 
